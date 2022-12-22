@@ -28,7 +28,7 @@ export const NewCycleForm = () => {
         min={5}
         step={5}
         disabled={!!ActiveCicle}
-        {...register('minutsAmount', { valueAsNumber: true })}
+        {...register('minutesAmount', { valueAsNumber: true })}
       />
 
       <datalist id="task-sujestions">

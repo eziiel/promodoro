@@ -17,8 +17,9 @@ const ValidatorCicleSchema = zod.object({
 })
 
 type NewCicleFormData = zod.infer<typeof ValidatorCicleSchema>
+
 export const Home = () => {
-  const { ActiveCicle, createNewCicle, interruptedCurrentCycle } =
+  const { ActiveCicle, createNewCicle, interruptCurrentCycle } =
     React.useContext(CyclesContext)
 
   const newCycleForm = useForm<NewCicleFormData>({
@@ -29,25 +30,26 @@ export const Home = () => {
     },
   })
 
-  const { handleSubmit, watch /* reset */ } = newCycleForm
+  const { handleSubmit, watch, reset } = newCycleForm
 
   const task = watch('task')
   const thisSubmitIsDisabled = !task
-  console.log('index')
+
+  const handleCreateNewCycle = (data: NewCicleFormData) => {
+    createNewCicle(data)
+    reset()
+  }
 
   return (
     <S.HomeContent>
-      <form action="" onSubmit={handleSubmit(createNewCicle)}>
+      <form action="" onSubmit={handleSubmit(handleCreateNewCycle)}>
         <FormProvider {...newCycleForm}>
           <NewCycleForm />
         </FormProvider>
         <CountDown />
 
         {ActiveCicle ? (
-          <S.StopButtonFormCount
-            type="button"
-            onClick={interruptedCurrentCycle}
-          >
+          <S.StopButtonFormCount type="button" onClick={interruptCurrentCycle}>
             <HandPalm size={24} />
             Interromper
           </S.StopButtonFormCount>

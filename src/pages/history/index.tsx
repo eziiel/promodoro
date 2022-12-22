@@ -8,8 +8,6 @@ export const History = () => {
     <S.HistoryMain>
       <h1>Histórico de tarefas</h1>
 
-      <pre>{JSON.stringify(cycles, null, 2)}</pre>
-
       <S.TableContainer>
         <table>
           <thead>
@@ -22,62 +20,32 @@ export const History = () => {
           </thead>
 
           <tbody>
-            <tr>
-              <td>tarefa</td>
-              <td>20 minutos</td>
-              <td>há dois meses</td>
-              <td>
-                <S.StatusTaskColor color="red">interrompido</S.StatusTaskColor>
-              </td>
-            </tr>
-            <tr>
-              <td>tarefa</td>
-              <td>20 minutos</td>
-              <td>há dois meses</td>
-              <td>
-                <S.StatusTaskColor color="yellow">concluido</S.StatusTaskColor>
-              </td>
-            </tr>
-            <tr>
-              <td>tarefa</td>
-              <td>20 minutos</td>
-              <td>há dois meses</td>
-              <td>
-                <S.StatusTaskColor color="yellow">concluido</S.StatusTaskColor>
-              </td>
-            </tr>
-            <tr>
-              <td>tarefa</td>
-              <td>20 minutos</td>
-              <td>há dois meses</td>
-              <td>
-                <S.StatusTaskColor color="yellow">concluido</S.StatusTaskColor>
-              </td>
-            </tr>
-            <tr>
-              <td>tarefa</td>
-              <td>20 minutos</td>
-              <td>há dois meses</td>
-              <td>
-                <S.StatusTaskColor color="yellow">concluido</S.StatusTaskColor>
-              </td>
-            </tr>
-            <tr>
-              <td>tarefa</td>
-              <td>20 minutos</td>
-              <td>há dois meses</td>
-              <td>
-                <S.StatusTaskColor color="yellow">concluido</S.StatusTaskColor>
-              </td>
-            </tr>
-            <tr>
-              <td>tarefa</td>
-              <td>20 minutos</td>
-              <td>há dois meses</td>
-              <td>
-                <S.StatusTaskColor color="yellow">concluido</S.StatusTaskColor>
-              </td>
-            </tr>
+            {cycles.map((cycle) => {
+              return (
+                <tr key={cycle.id}>
+                  <td>{cycle.task}</td>
+                  <td>{cycle.minutesAmount}</td>
+                  <td>{cycle.startData.toISOString()}</td>
+                  <td>
+                    {cycle.finishedCycle && (
+                      <S.StatusTaskColor color="green">
+                        Concluído
+                      </S.StatusTaskColor>
+                    )}
+                    {cycle.interruptedCycle && (
+                      <S.StatusTaskColor color="red">
+                        Interrompido
+                      </S.StatusTaskColor>
+                    )}
+                    {!cycle.finishedCycle && !cycle.interruptedCycle && (
+                      <S.StatusTaskColor color="yellow">
+                        Em andamento
+                      </S.StatusTaskColor>
+                    )}
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </S.TableContainer>

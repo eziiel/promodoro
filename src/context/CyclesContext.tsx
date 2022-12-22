@@ -5,7 +5,7 @@ interface Cycle {
   task: string
   minutesAmount: number
   startData: Date
-  interrupterCycle?: Date
+  interruptedCycle?: Date
   finishedCycle?: Date
 }
 interface CreateCycleData {
@@ -20,7 +20,7 @@ interface CyclesContextType {
   currentCycleAsFinished: () => void
   setSecondsPassed: (seconds: number) => void
   createNewCicle: (data: CreateCycleData) => void
-  interruptedCurrentCycle: () => void
+  interruptCurrentCycle: () => void
 }
 
 export const CyclesContext = React.createContext({} as CyclesContextType)
@@ -50,22 +50,7 @@ export const CyclesContextProvider = ({ children }: CyclesContextProps) => {
     setAmountSecondsPassed(seconds)
   }
 
-  const interruptedCurrentCycle = () => {
-    setCycles((prev) =>
-      prev.map((cycle) => {
-        if (cycle.id === activeCycleId) {
-          return { ...cycle, interrupterCycle: new Date() }
-        } else {
-          return cycle
-        }
-      }),
-    )
-
-    setActiveCycleId(null)
-  }
-
   const createNewCicle = (data: CreateCycleData) => {
-    console.log('teste')
     const id = String(new Date().getTime())
 
     const newCycle: Cycle = {
@@ -77,7 +62,20 @@ export const CyclesContextProvider = ({ children }: CyclesContextProps) => {
     setCycles((prev) => [...prev, newCycle])
     setActiveCycleId(id)
     setAmountSecondsPassed(0)
-    // reset()
+  }
+
+  const interruptCurrentCycle = () => {
+    setCycles((prev) =>
+      prev.map((cycle) => {
+        if (cycle.id === activeCycleId) {
+          return { ...cycle, interruptedCycle: new Date() }
+        } else {
+          return cycle
+        }
+      }),
+    )
+
+    setActiveCycleId(null)
   }
 
   return (
@@ -90,7 +88,7 @@ export const CyclesContextProvider = ({ children }: CyclesContextProps) => {
         amountSecondsPassed,
         setSecondsPassed,
         createNewCicle,
-        interruptedCurrentCycle,
+        interruptCurrentCycle,
       }}
     >
       {children}

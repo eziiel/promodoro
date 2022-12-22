@@ -36,18 +36,18 @@ export const CountDown = () => {
 
     if (ActiveCicle) {
       secondsTimePassed = setInterval(() => {
-        const secondosDifference = differenceInSeconds(
+        const secondsDifference = differenceInSeconds(
           new Date(),
           ActiveCicle.startData,
         )
 
-        if (secondosDifference >= totalSeconds) {
+        if (secondsDifference >= totalSeconds) {
           currentCycleAsFinished()
 
           setSecondsPassed(totalSeconds)
           clearInterval(secondsTimePassed)
         } else {
-          setSecondsPassed(secondosDifference)
+          setSecondsPassed(secondsDifference)
         }
       }, 1000)
     }
