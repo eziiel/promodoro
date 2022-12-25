@@ -46,13 +46,12 @@ export const CyclesContextProvider = ({ children }: CyclesContextProps) => {
   )
 
   const { cycles, activeCycleId } = cyclesState
-  const ActiveCicle = cycles.find((cycle) => cycle.id === activeCycleId)
+  const ActiveCicle = cycles?.find((cycle) => cycle.id === activeCycleId)
 
   const [amountSecondsPassed, setAmountSecondsPassed] = React.useState(() => {
     if (ActiveCicle) {
       return differenceInSeconds(new Date(), new Date(ActiveCicle.startData))
-    }
-    return 0
+    } else return 0
   })
 
   React.useEffect(() => {
