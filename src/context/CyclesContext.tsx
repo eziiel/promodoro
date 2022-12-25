@@ -1,7 +1,6 @@
 import { differenceInSeconds } from 'date-fns'
 import React, { ReactNode } from 'react'
 import {
-  ActionTypes,
   addNewCycleAction,
   interruptedNewCycleAction,
   markedCycleHasFinishedAction,
