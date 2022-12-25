@@ -41,7 +41,7 @@ export const CyclesContextProvider = ({ children }: CyclesContextProps) => {
       )
       if (storedStateAsJSON) {
         return JSON.parse(storedStateAsJSON)
-      } else return []
+      }
     },
   )
 
