@@ -39,6 +39,12 @@ npm install
 npm run dev
 ```
 
+## 🔖 Layout
+
+You can view the project through the links below:
+
+- [Live Preview](https://promodoro-eziiel.vercel.app)
+
 ## 📝 License
 
 
